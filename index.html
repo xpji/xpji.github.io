@@ -193,7 +193,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-09-09 21:15:55 / 修改时间：21:41:07" itemprop="dateCreated datePublished" datetime="2021-09-09T21:15:55+08:00">2021-09-09</time>
+              <time title="创建时间：2021-09-09 21:15:55 / 修改时间：22:35:12" itemprop="dateCreated datePublished" datetime="2021-09-09T21:15:55+08:00">2021-09-09</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -218,7 +218,7 @@
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>10 分钟</span>
+              <span>11 分钟</span>
             </span>
 
         </div>
@@ -230,8 +230,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="xarray介绍"><a href="#xarray介绍" class="headerlink" title="xarray介绍"></a><strong>xarray介绍</strong></h1><p>[TOC]</p>
-<h2 id="xr-Dataset："><a href="#xr-Dataset：" class="headerlink" title="xr.Dataset："></a><strong>xr.Dataset：</strong></h2><p>装入多个变量的信息，可以对每个变量进行定义不同的维度信息。主要包含以下三部分：</p>
+          <h1 id="xarray介绍"><a href="#xarray介绍" class="headerlink" title="xarray介绍"></a><strong>xarray介绍</strong></h1><h2 id="xr-Dataset："><a href="#xr-Dataset：" class="headerlink" title="xr.Dataset："></a><strong>xr.Dataset：</strong></h2><p>装入多个变量的信息，可以对每个变量进行定义不同的维度信息。主要包含以下三部分：</p>
 <ol>
 <li>data_vars</li>
 <li>coords</li>
@@ -240,14 +239,11 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xarray.Dataset(*data_vars=None*, *coords=None*, *attrs=None*)</span><br></pre></td></tr></table></figure>
 
 <h3 id="1、官方例子："><a href="#1、官方例子：" class="headerlink" title="1、官方例子："></a>1、官方例子：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#创建数据</span><br><span class="line">np.random.seed(0)</span><br><span class="line">temperature =np.random.randn(2, 2, 3)</span><br><span class="line">precipitation =np.random.rand(2, 2, 3)</span><br><span class="line">lon = [[-99.83, -99.32], [-99.79, -99.23]]</span><br><span class="line">lat = [[42.25, 42.21], [42.63, 42.59]]</span><br><span class="line">time = pd.date_range(&quot;2014-09-06&quot;, periods=3)</span><br><span class="line">reference_time = pd.Timestamp(&quot;2014-09-05&quot;)</span><br><span class="line">#将创建的数据填入dataset</span><br><span class="line">ds = xr.Dataset(</span><br><span class="line">    data_vars=dict(</span><br><span class="line">        temperature=([&quot;x&quot;, &quot;y&quot;, &quot;time&quot;], temperature),</span><br><span class="line">        precipitation=([&quot;x&quot;, &quot;y&quot;, &quot;time&quot;], precipitation),</span><br><span class="line">    ),</span><br><span class="line">    coords=dict(</span><br><span class="line">        lon=([&quot;x&quot;, &quot;y&quot;], lon),</span><br><span class="line">        lat=([&quot;x&quot;, &quot;y&quot;], lat),</span><br><span class="line">        time=time,</span><br><span class="line">        reference_time=reference_time,</span><br><span class="line">    ),</span><br><span class="line">    attrs=dict(description=&quot;Weather related data.&quot;),</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">ds #显示创建的dataset</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="paper2%5Cimage-20210903220726116.png" alt="image-20210903220726116"></p>
+<p><img src="https://img-blog.csdnimg.cn/fc4fdb7b948d447cb4f4a6d5f897cd68.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_19,color_FFFFFF,t_70,g_se,x_16" alt="[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-ApWlxm85-1631196142738)(paper2\image-20210903220726116.png)]"></p>
 <p>其实，有点复杂，下面我举一个简单一点的例子：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">ds = xr.Dataset(</span><br><span class="line">    data_vars=&#123;</span><br><span class="line">        &quot;a&quot;: ((&quot;x&quot;, &quot;y&quot;), np.ones((3, 3))),#生成 3*3的都是1的数组,(&#x27;x&#x27;,&#x27;y&#x27;)表示维度信息</span><br><span class="line">        &quot;b&quot;: (&quot;t&quot;, np.full(4, 1), &#123;&quot;b atrri&quot;: &quot;b value&quot;&#125;), #填充都是1的一维数组</span><br><span class="line">              &#125;,</span><br><span class="line">    # 创建坐标          </span><br><span class="line">    coords=&#123;</span><br><span class="line">        &quot;longtitude&quot;:(&quot;x&quot;,[-1, 0, 1]), #[]里的就是对应的数值</span><br><span class="line">        &quot;latitude&quot;:(&quot;y&quot;,[-1, 0, 1]),</span><br><span class="line">        &quot;time&quot;:(&quot;t&quot;,[&quot;2021-09-01&quot;, &quot;2021-09-02&quot;, &quot;2021-09-03&quot;, &quot;2021-09-04&quot;])</span><br><span class="line">            &#125;,</span><br><span class="line">     #创建 属性信息</span><br><span class="line">      attrs=&#123;&quot;attr&quot;: &quot;example&quot;&#125;</span><br><span class="line">)</span><br><span class="line">ds</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p><img src="paper2%5Cimage-20210903221503248.png" alt="image-20210903221503248"></p>
+<p><img src="https://img-blog.csdnimg.cn/51b50fa371cb41e5a413af0118118228.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_19,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
 <p>创建dataset时需要注意的一点是：data_vars中的维度个数应该与坐标中的数据个数对应上，比如下面数据中，创建一个3*3的数组，那么坐标中的len(经、纬度)也应该是 3</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ds = xr.Dataset(</span><br><span class="line">    data_vars=&#123;</span><br><span class="line">        &quot;a&quot;: ((&quot;x&quot;, &quot;y&quot;), np.ones((3, 3)))</span><br><span class="line">              &#125;,</span><br><span class="line">    # 创建坐标          </span><br><span class="line">    coords=&#123;</span><br><span class="line">        &quot;longtitude&quot;:(&quot;x&quot;,[-1, 0, 1]), #[]里的就是对应的数值</span><br><span class="line">        &quot;latitude&quot;:(&quot;y&quot;,[-1, 0, 1])  &#125;,</span><br><span class="line">     #创建 属性信息</span><br><span class="line">      attrs=&#123;&quot;attr&quot;: &quot;example&quot;&#125;</span><br><span class="line">)</span><br><span class="line">ds</span><br></pre></td></tr></table></figure>
 
@@ -256,7 +252,7 @@
 
 
 
-<p><img src="paper2%5Cimage-20210903222641465.png" alt="image-20210903222641465"></p>
+<p><img src="https://img-blog.csdnimg.cn/1a29aa949b0a43aa9c4f4a3603c53959.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
 <hr>
 <h2 id="xr-DataArray"><a href="#xr-DataArray" class="headerlink" title="xr.DataArray:"></a>xr.DataArray:</h2><p>装入一个变量的信息</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">import xarray as xr</span><br><span class="line">import pandas as pd</span><br></pre></td></tr></table></figure>
@@ -296,7 +292,7 @@
 <p>或者</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">da.time.to_pandas()</span><br></pre></td></tr></table></figure>
 
-<p><img src="paper2%5Cimage-20210903225014835.png" alt="image-20210903225014835"></p>
+<p><img src="https://img-blog.csdnimg.cn/48d0297d2336419da5400e86dfc782b4.png#pic_center" alt="在这里插入图片描述"></p>
 <p>以上两种方法都可以实现，对于其他的数据，操作方法类似，取决于你确定的或者读取的数据坐标名称。</p>
 <p>同样的，反过来也是如此，只是换个函数：</p>
 <p>**<code>to_dataframe</code>**：将<code>DataArray</code>或<code>Dataset</code>对象转换为<code>pandas.dataframe</code>。</p>
@@ -310,20 +306,20 @@
 <h4 id="写入nc文件："><a href="#写入nc文件：" class="headerlink" title="写入nc文件："></a>写入nc文件：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ds = xr.Dataset(    data_vars=&#123;        &quot;a&quot;: ((&quot;x&quot;, &quot;y&quot;), np.random.randn(4, 2)),        &quot;b&quot;: ((&quot;z&quot;, &quot;x&quot;), np.random.randn(6, 4)),    &#125;,    coords=&#123;        &quot;x&quot;: np.arange(4),        &quot;y&quot;: np.arange(-2, 0),        &quot;z&quot;: np.arange(-3, 3),    &#125;,)</span><br></pre></td></tr></table></figure>
 
 <p>将 <code>DataSets</code> 和 <code>DataArray</code> 写入 nc 文件中</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># DataSets写入文件ds.to_netcdf(&quot;data.nc&quot;)# DataArray写入文件ds.a.to_netcdf(&quot;dataArray.nc&quot;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># DataSets写入文件</span><br><span class="line">ds.to_netcdf(&quot;data.nc&quot;)</span><br><span class="line"># DataArray写入文件</span><br><span class="line">ds.a.to_netcdf(&quot;dataArray.nc&quot;)</span><br></pre></td></tr></table></figure>
 
 <h2 id="xarray–数据索引和切片"><a href="#xarray–数据索引和切片" class="headerlink" title="xarray–数据索引和切片"></a><strong>xarray–数据索引和切片</strong></h2><p>为了更好的处理数据，可以通过xarray对数据进行索引和切片，实现更好、更快的处理。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import numpy as npimport xarray as xrimport pandas as pdarray = np.random.randn(3,4) #生成一个3行4列（3×4）的随机数组arraydata= xr.DataArray(array, dims=(&quot;x&quot;,&quot;y&quot;))data</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">import xarray as xr</span><br><span class="line">import pandas as pd</span><br><span class="line">array = np.random.randn(3,4) #生成一个3行4列（3×4）的随机数组</span><br><span class="line">arraydata= xr.DataArray(array, dims=(&quot;x&quot;,&quot;y&quot;))</span><br><span class="line">data</span><br></pre></td></tr></table></figure>
 
-<p><img src="paper2%5Cimage-20210903231524905.png" alt="image-20210903231524905"></p>
+<p><img src="https://img-blog.csdnimg.cn/5736477e19a44399aa89e5b8c65ff6c9.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_14,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
 <p>方法1：<code>.isel</code>（integer selection）是一个基于维度名称数字索引的筛选的方法。通过<code>.isel</code>这个方法筛选了arr第一维度x索引值为1和第二维度y索引值为2的值。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data.isel(x=1, y=2)</span><br></pre></td></tr></table></figure>
 
-<p><img src="paper2%5Cimage-20210903231658248.png" alt="image-20210903231658248"></p>
+<p><img src="https://img-blog.csdnimg.cn/deef46ee53e44eac8fc535be4c4bcf33.png#pic_center" alt="在这里插入图片描述"></p>
 <p>方法2：使用坐标名称筛选数据，使用的是<code>.sel</code>方法而非<code>.isel</code>方法。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data = xr.DataArray(        np.random.randn(6,6),        dims=(&quot;x&quot;,&quot;y&quot;),        coords=&#123;          &quot;x&quot;:[1,2,3,4,5,6],          &quot;y&quot;:pd.date_range(&quot;2021-09-05&quot;, periods=6, freq=&quot;M&quot;)        &#125;)data.sel(x=5)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data = xr.DataArray(        np.random.randn(6,6),      </span><br><span class="line">  dims=(&quot;x&quot;,&quot;y&quot;),      </span><br><span class="line">    coords=&#123;          &quot;x&quot;:[1,2,3,4,5,6],          &quot;y&quot;:pd.date_range(&quot;2021-09-05&quot;, periods=6, freq=&quot;M&quot;)        &#125;)</span><br><span class="line">data.sel(x=5)</span><br></pre></td></tr></table></figure>
 
-<p><img src="paper2%5Cimage-20210903232221529.png" alt="image-20210903232221529"></p>
+<p><img src="https://img-blog.csdnimg.cn/ee93a7c03e5a41029e1441ed1f061ceb.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_19,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
 <p>或者也可以这样写</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data.loc[&#123;&quot;x&quot;:5&#125;]</span><br></pre></td></tr></table></figure>
 
@@ -332,154 +328,159 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data.isel(lat=slice(None,20), lon=slice(20, 40))</span><br></pre></td></tr></table></figure>
 
 <p>2、筛选南北纬30度且时间在2019年1月1日至2019年10月1日的数据</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lat_range=lat[(lat&gt;=-30) &amp; (lat&lt;=30)]data.sel(lat=lat_range, time=slice(&quot;2019-01-01&quot;, &quot;2019-10-1&quot;))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lat_range=lat[(lat&gt;=-30) &amp; (lat&lt;=30)]</span><br><span class="line">data.sel(lat=lat_range, time=slice(&quot;2019-01-01&quot;, &quot;2019-10-1&quot;))</span><br></pre></td></tr></table></figure>
 
 <p>3、去除经度250<del>280的数据，经度排列为0</del>360</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data.drop_sel(lon=[250.0, 280.0])</span><br></pre></td></tr></table></figure>
 
 <h2 id="xarray–nc文件规则网格插值"><a href="#xarray–nc文件规则网格插值" class="headerlink" title="xarray–nc文件规则网格插值"></a><strong>xarray–nc文件规则网格插值</strong></h2><p>创建一个数组例子：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import numpy as npimport xarray as xrimport pandas as pddata = xr.DataArray(        np.random.randn(6,6),        dims=(&quot;x&quot;,&quot;y&quot;),        coords=&#123;          &quot;x&quot;:[1,2,3,4,5,6],          &quot;y&quot;:pd.date_range(&quot;2021-09-05&quot;, periods=6,freq=&quot;M&quot;)        &#125;)data</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">import xarray as xr</span><br><span class="line">import pandas as pd</span><br><span class="line">data = xr.DataArray(        np.random.randn(6,6),       </span><br><span class="line">	 dims=(&quot;x&quot;,&quot;y&quot;),        </span><br><span class="line"> 	coords=&#123;          &quot;x&quot;:[1,2,3,4,5,6],          &quot;y&quot;:pd.date_range(&quot;2021-09-05&quot;, 	periods=6,freq=&quot;M&quot;)        &#125;)</span><br><span class="line"> data</span><br></pre></td></tr></table></figure>
 
 <p>有时候想要知道格点框中更加高分辨率的值，这时候可以使用interp函数进行数据插值。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data.interp(  x=np.linspace(2, 6, 10),  y=pd.date_range(&quot;2021-04-01&quot;, &quot;2021-04-30&quot;,freq=&quot;D&quot;))</span><br></pre></td></tr></table></figure>
 
 <hr>
 <p>假如我现在需要将一个原始为1* 1 °分辨率的nc文件，插值为目标为0.25*0.25°分辨率的数据，可以这样操作：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import xarray as xrimport netCDF4 as ncpath1=&#x27;D:\\ss\\data.nc&#x27;da=xr.open_dataset(path1)path2=&#x27;D:\\ss\\目标data.nc&#x27;ds=xr.open_dataset(path2)ss= ds.interp(lat=da.lat.values, lon=da.lon.values)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import xarray as xr</span><br><span class="line">import netCDF4 as nc</span><br><span class="line">path1=&#x27;D:\\ss\\data.nc&#x27;</span><br><span class="line">da=xr.open_dataset(path1)</span><br><span class="line">path2=&#x27;D:\\ss\\目标data.nc&#x27;</span><br><span class="line">ds=xr.open_dataset(path2)</span><br><span class="line">ss= ds.interp(lat=da.lat.values, lon=da.lon.values)</span><br></pre></td></tr></table></figure>
 
 <h2 id="xarray-align"><a href="#xarray-align" class="headerlink" title="xarray.align"></a><strong>xarray.align</strong></h2><p>给定任意数量的 Dataset 和/或 DataArray 对象，返回新的 具有对齐索引和尺寸大小的对象。 </p>
 <p>举个例子：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = xr.DataArray(    [[25, 35], [10, 24]],    dims=(&quot;lat&quot;, &quot;lon&quot;),    coords=&#123;&quot;lat&quot;: [35.0, 40.0], &quot;lon&quot;: [100.0, 120.0]&#125;,)y = xr.DataArray(    [[20, 5], [7, 13]],    dims=(&quot;lat&quot;, &quot;lon&quot;),    coords=&#123;&quot;lat&quot;: [35.0, 42.0], &quot;lon&quot;: [100.0, 120.0]&#125;,)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">x = xr.DataArray(    [[25, 35], [10, 24]],    </span><br><span class="line">		dims=(&quot;lat&quot;, &quot;lon&quot;),    </span><br><span class="line">		coords=&#123;&quot;lat&quot;: [35.0, 40.0], &quot;lon&quot;: [100.0, 120.0]&#125;,)</span><br><span class="line">y = xr.DataArray(    [[20, 5], [7, 13]],    </span><br><span class="line">		dims=(&quot;lat&quot;, &quot;lon&quot;),    </span><br><span class="line">		coords=&#123;&quot;lat&quot;: [35.0, 42.0], &quot;lon&quot;: [100.0, 120.0]&#125;,)</span><br></pre></td></tr></table></figure>
 
 <p>首先创建两个dataArray：</p>
-<p><img src="xarray%5Cx" alt="image-20210909115017475"></p>
-<p><img src="xarray%5Cy" alt="image-20210909115045846"></p>
+<p><img src="https://img-blog.csdnimg.cn/bd2513817d4f4196bdd635cd0173f765.png#pic_center" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/91092e499f274c98b34d15b05a3641dc.png#pic_center" alt="在这里插入图片描述"></p>
 <p>默认返回join=’inner’的对齐方式，提取两者变量索引<strong>交集</strong>的数据。：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a, b = xr.align(x, y)</span><br></pre></td></tr></table></figure>
 
-<p><img src="xarray%5Cab" alt="image-20210909115252061"></p>
+<p><img src="https://img-blog.csdnimg.cn/2559357affea46808b4957dd76b4dfe7.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_16,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
 <p>对比x、y可以发现，两者索引交集为lat=35，lon=100、120，</p>
 <p>所以a就是x中lat=35，lon=100、120对应的值，b同理</p>
 <p>同样的，可以改变join=‘Method ‘改变提取的结果。</p>
 <p>方法<strong>outer</strong>：提取两者变量索引<strong>并集</strong>的数据。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a, b = xr.align(x, y, join=&quot;outer&quot;)</span><br></pre></td></tr></table></figure>
 
-<p><img src="xarray%5Cabouter" alt="image-20210909123814562"></p>
+<p><img src="https://img-blog.csdnimg.cn/e6170875e7fa4a80bb1e96d2ec662b0a.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_14,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
 <p>可以发现，将x、y的不同的lat对应的数据进行并集，a赋值结果如下</p>
-<p>​                    lon：100 120</p>
+<pre><code>                lon：100 120
+</code></pre>
 <ul>
 <li>lat：35          25     35</li>
-<li>​        40          10      24</li>
-<li>​        42          nan   nan</li>
+<li><pre><code>    40          10      24
+</code></pre>
+</li>
+<li><pre><code>    42          nan   nan
+</code></pre>
+</li>
 </ul>
 <p>其他方法可以查看官网：</p>
 <p><a target="_blank" rel="noopener" href="http://xarray.pydata.org/en/stable/generated/xarray.align.html">xarray.align</a></p>
 <hr>
 <h2 id="xarray-–降维处理"><a href="#xarray-–降维处理" class="headerlink" title="xarray –降维处理"></a><strong>xarray –降维处理</strong></h2><p>举一个三维SST的例子进行处理示范：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import xarray as xrfile=&#x27;..\\sst_olr\\olr.mon.mean.nc&#x27;data=xr.open_dataset(file)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import xarray as xr</span><br><span class="line">file=&#x27;..\\sst_olr\\olr.mon.mean.nc&#x27;</span><br><span class="line">data=xr.open_dataset(file)</span><br></pre></td></tr></table></figure>
 
-<p><img src="xarray%5Colr" alt="image-20210909124847756"></p>
+<p><img src="https://img-blog.csdnimg.cn/ed9c453bc3974c7f94722ff7385050eb.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_19,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
 <p>使用</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data.shape</span><br></pre></td></tr></table></figure>
 
 <p>查看一些维度排列顺序</p>
-<p><img src="xarray%5Colr.shape" alt="image-20210909125520954"></p>
+<p><img src="https://img-blog.csdnimg.cn/83e9927f4dce4c919c67643f24ffd2da.png#pic_center" alt="在这里插入图片描述"></p>
 <p>可以看到，维度顺序依次是<code>time、lat、lon</code>,对应<code>axis=0、1、2</code></p>
 <p>如果要对时间方向上以平均的方法进行降维，可写为：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 对第0维度（维度time）以平均的方法进行降维data.mean(axis = 0)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 对第0维度（维度time）以平均的方法进行降维</span><br><span class="line">data.mean(axis = 0)</span><br></pre></td></tr></table></figure>
 
-<p><img src="xarray%5Colr_mean_time" alt="image-20210909125611115"></p>
+<p><img src="https://img-blog.csdnimg.cn/1a3836046dca4f72834e4b78e03343f7.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_18,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
 <p>可用<code>.plot</code>方法可视化结果:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data.mean(axis=2).plot</span><br></pre></td></tr></table></figure>
 
-<p><img src="xarray%5Colr.plot" alt="image-20210909125643111"></p>
+<p><img src="https://img-blog.csdnimg.cn/e7f45ce6a3e444148feee7373071f4c9.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_16,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
 <p>同样的道理，如果要对经纬方向上进行降维，只需要将写上对应的维度即可。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 对经纬度（维度lat、lon）以平均的方法进行降维data.mean(axis=(1, 2))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 对经纬度（维度lat、lon）以平均的方法进行降维</span><br><span class="line">data.mean(axis=(1, 2))</span><br></pre></td></tr></table></figure>
 
-<p><img src="xarray%5Colr.lat.lon.mean" alt="image-20210909130012596"></p>
+<p><img src="https://img-blog.csdnimg.cn/9b31effbff6e4134bb0af5b1e31a2b61.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_18,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
 <p>这其实就得到了一个时间序列，这个时间序列描述了全球平均OLR的变化。</p>
 <p>画个图来看看：</p>
-<p><img src="xarray%5Colr.lat.lon.mean.plot" alt="image-20210909130144806"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 绘制2018-01~2018-12全球平均OLR变化data.mean(axis=(1, 2)).sel(time=slice(&quot;2018-1&quot;,&quot;2018-12&quot;)).plot()</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/69ce2bef84224616b01621fe88dab7bb.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_13,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 绘制2018-01~2018-12全球平均OLR变化</span><br><span class="line">data.mean(axis=(1, 2)).sel(time=slice(&quot;2018-1&quot;,&quot;2018-12&quot;)).plot()</span><br></pre></td></tr></table></figure>
 
-<p><img src="xarray%5Colr.lat.lon.mean.plot.2018" alt="image-20210909130418062"></p>
+<p><img src="https://img-blog.csdnimg.cn/a593bf66fbdd48478a7b380a7a0d4661.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_13,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
 <p>上述方法是仿照numpy中的降维方法，xarray中可以使用另一种更方便快捷的方法。直接选择需要处理的维度名称，效果与上述方法是一样的，建议大家采取xarray的方法，自动跳过了缺测值（默认），有利于数据处理。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data.mean(dim=&quot;time&quot;)data.mean(dim=&quot;lat&quot;,&quot;lon&quot;)</span><br></pre></td></tr></table></figure>
 
 <p>此外，如<code>min</code>（取最小值）, <code>max</code>（取最大值）, <code>sum</code>（求和）, <code>std</code>（求标准差）等也可以实现降维，大家可以自己摸索。</p>
 <hr>
 <h2 id="xarray–分割数据（以nc文件为例）"><a href="#xarray–分割数据（以nc文件为例）" class="headerlink" title="xarray–分割数据（以nc文件为例）"></a><strong>xarray–分割数据</strong>（以nc文件为例）</h2><p>在分割数据过程中，需要用到<code>groupby()</code>实现对于按季节、按月份的分割等待操作。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import xarray as xrfile=&#x27;D:\\desktopppp\\20210906\\sst_olr\\olr.mon.mean.nc&#x27;data=xr.open_dataset(file).olr</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import xarray as xr</span><br><span class="line">file=&#x27;D:\\desktopppp\\20210906\\sst_olr\\olr.mon.mean.nc&#x27;</span><br><span class="line">data=xr.open_dataset(file).olr</span><br></pre></td></tr></table></figure>
 
 <p>首先还是导入OLR数据，并提取时间变量，用法前文已经讲过</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data.time</span><br></pre></td></tr></table></figure>
 
-<p><img src="xarray%5Colr.time" alt="image-20210909174515327"></p>
+<p><img src="https://img-blog.csdnimg.cn/beb3f833ef494ce09f19cd4eef08e0dd.png#pic_center" alt="在这里插入图片描述"></p>
 <p>同时，这里的time是<code>datatime</code>的格式，可以直接使用<code>datatime库</code>的相关使用方法创建时间变量的待索引对象，利用<code>.dt.month</code>提取各个时间的月份数据</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data.time.dt.month</span><br></pre></td></tr></table></figure>
 
-<p><img src="xarray%5Colr.time.month" alt="image-20210909174610898"></p>
+<p><img src="https://img-blog.csdnimg.cn/3cc3df79c9d24fc29726a15d693c9d46.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_14,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
 <p>同理，利用<code>.dt.year</code>提取各个时间的年份数据</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data.time.dt.year</span><br></pre></td></tr></table></figure>
 
-<p><img src="xarray%5Colr.time.year" alt="image-20210909174713859"></p>
+<p><img src="https://img-blog.csdnimg.cn/08603de3525c4b7f944ffb3140aa3605.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_16,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
 <h3 id="xarray-DataArray-groupby-求季节平均、年平均、月平均"><a href="#xarray-DataArray-groupby-求季节平均、年平均、月平均" class="headerlink" title="xarray.DataArray.groupby()求季节平均、年平均、月平均"></a>xarray.DataArray.groupby()求季节平均、年平均、月平均</h3><p>类似于Pandas包中的groupby的思想，我们利用<code>dataArray.groupby()</code>函数将月份作为键（唯一值）来对原数据进行分离。本质是即把各年的某个月的数据放到了一组。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">month_group = data.groupby(&quot;time.month&quot;)month_group </span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">month_group = data.groupby(&quot;time.month&quot;)</span><br><span class="line">month_group </span><br></pre></td></tr></table></figure>
 
-<p><img src="xarray%5Colr.time.month.group" alt="image-20210909175006499"></p>
+<p><img src="https://img-blog.csdnimg.cn/c8c90323c35b44959c98222abf5095e3.png#pic_center" alt="在这里插入图片描述"></p>
 <p>除了可以以月份进行分割数据，也可以将年、季节作为分割对象，大家可以自行尝试</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data.groupby(&quot;time.year&quot;)data.groupby(&quot;time.season&quot;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data.groupby(&quot;time.year&quot;)</span><br><span class="line">data.groupby(&quot;time.season&quot;)</span><br></pre></td></tr></table></figure>
 
 <p>以上操作的优点在于，对于我们经常处理的一些海洋气象<code>nc</code>文件，经常需要对于数据进行求季节平均，月平均，年平均等处理，使<code>dataArray.groupby()</code></p>
 <p>就可以非常方便快捷的实现处理，以下给出例子：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">season_mean=data.groupby(&#x27;time.season&#x27;).mean(&#x27;time&#x27;, skipna=True)year_mean=data.groupby(&#x27;time.year&#x27;).mean(&#x27;time&#x27;, skipna=True)month_mean=data.groupby(&#x27;time.montn&#x27;).mean(&#x27;time&#x27;, skipna=True)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">season_mean=data.groupby(&#x27;time.season&#x27;).mean(&#x27;time&#x27;, skipna=True)</span><br><span class="line">year_mean=data.groupby(&#x27;time.year&#x27;).mean(&#x27;time&#x27;, skipna=True)</span><br><span class="line">month_mean=data.groupby(&#x27;time.montn&#x27;).mean(&#x27;time&#x27;, skipna=True)</span><br></pre></td></tr></table></figure>
 
 <hr>
 <h3 id="对于按月分组元素的迭代"><a href="#对于按月分组元素的迭代" class="headerlink" title="对于按月分组元素的迭代"></a>对于按月分组元素的迭代</h3><p>经过上面的分割操作后，原数据已经拆分成12个组（groups），放置在变量<code>month_group</code>中。对于这12个组，可通过循环进行遍历。迭代器返回各个组的键（组名）和值（与该组相对应的实际数据集）。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for group_name, group_ds in month_group:    # 当第一个循环结束时，停止遍历month_group    print(group_name)     breakgroup_ds</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">for group_name, group_ds in month_group:    </span><br><span class="line"># 当第一个循环结束时，停止遍历</span><br><span class="line">	month_group    </span><br><span class="line">	print(group_name)    </span><br><span class="line">	break</span><br><span class="line">group_ds</span><br></pre></td></tr></table></figure>
 
-<p><img src="xarray%5Colr.group" alt="image-20210909180212181"></p>
+<p><img src="https://img-blog.csdnimg.cn/036a9188ab234b078951e81c7ca4bfe3.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_19,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
 <h3 id="分组元素的逐个访问"><a href="#分组元素的逐个访问" class="headerlink" title="分组元素的逐个访问"></a>分组元素的逐个访问</h3><p>通过对数据进行list处理，可以获得<strong>分组名称</strong>和<strong>对应的xarray数据</strong>.</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list_group = list(month_group)list_group</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">list_group = list(month_group)</span><br><span class="line">list_group</span><br></pre></td></tr></table></figure>
 
 <p>这样，<code>list_group</code>中有<code>12个DataArray</code>，每个<code>DataArray</code>中对应包含1-12个月的数据</p>
 <p>通过索引可以提取对于月份的数据</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list_group[0]#访问这个分组对应的xarray数据（即各年的一月数据）。list_group[1]#（即各年的二月数据）。以此类推</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">list_group[0]#访问这个分组对应的xarray数据（即各年的一月数据）。</span><br><span class="line">list_group[1]#（即各年的二月数据）。以此类推</span><br></pre></td></tr></table></figure>
 
 <h3 id="查找各个分组中对应元素在原始数据中键的位置"><a href="#查找各个分组中对应元素在原始数据中键的位置" class="headerlink" title="查找各个分组中对应元素在原始数据中键的位置"></a>查找各个分组中对应元素在原始数据中键的位置</h3><p>对于上述分割的数据，可以通过使用<code>.groups</code>方法获得元素（<code>month</code>）在原分组坐标中（<code>time</code>）的位置</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gb = data.groupby(&quot;time.month&quot;).groupsgb</span><br></pre></td></tr></table></figure>
 
-<p><img src="xarray%5Colr.time.groups" alt="image-20210909182736366"></p>
+<p><img src="https://img-blog.csdnimg.cn/68678e71142e4b5c97753e57390b3b12.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_17,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
 <p>其中，第0个可理解为<code>ds.isel(time = 0)</code>，同理第12个可理解为<code>ds.isel(time = 12)</code>，并且是一个字典类型。字典：键值对（key-value pair）键与值之间的关联。</p>
 <p>可以使用<code>for</code>循环遍历：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for key in sorted(gb):    # str（）函数将数值转为字符串    print( str(key)+&quot;月&quot;, gb[key])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for key in sorted(gb):    # str（）函数将数值转为字符串    </span><br><span class="line">	print( str(key)+&quot;月&quot;, gb[key])</span><br></pre></td></tr></table></figure>
 
-<p><img src="xarray%5Cgroup.month" alt="image-20210909183324975"></p>
+<p><img src="https://img-blog.csdnimg.cn/de0ee8a4199341139f121e38b9341e8e.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
 <hr>
 <h3 id="xarray–分箱（按照不同区间对数据进行分组）"><a href="#xarray–分箱（按照不同区间对数据进行分组）" class="headerlink" title="xarray–分箱（按照不同区间对数据进行分组）"></a>xarray–分箱（按照不同区间对数据进行分组）</h3><h4 id="1、筛选数据groupby"><a href="#1、筛选数据groupby" class="headerlink" title="1、筛选数据groupby"></a>1、筛选数据groupby</h4><p>对数据进行筛选，按照自己定义的区间。</p>
 <p>使用的数据信息如下：</p>
-<p><img src="xarray%5Csst" alt="image-20210909183815085"></p>
+<p><img src="https://img-blog.csdnimg.cn/791d16bab47345d595bd45c9b74dfa7c.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_19,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
 <p>为了减少运算时间，先选出第0时刻的数据，创建区间，按照区间进行筛选</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">da= data.isel(time = 0)sst_bin = [-10, 0, 10, 20, 30]gb_bin_list =da.groupby_bins(&quot;sst&quot;, sst_bin)gb_bin_list </span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">da= data.isel(time = 0)</span><br><span class="line">sst_bin = [-10, 0, 10, 20, 30]</span><br><span class="line">gb_bin_list =da.groupby_bins(&quot;sst&quot;, sst_bin)</span><br><span class="line">gb_bin_list </span><br></pre></td></tr></table></figure>
 
 <p>应该有四个区间，检验结果，符合要求</p>
-<p><img src="xarray%5Cgroyplist" alt="image-20210909184417993"></p>
+<p><img src="https://img-blog.csdnimg.cn/0056521b5d6840e4b3c14c470647a511.png#pic_center" alt="在这里插入图片描述"></p>
 <p>然后，对于所需区间的数据进行分别处理，索引方法与上述相同。</p>
 <h4 id="2、应用数据Apply"><a href="#2、应用数据Apply" class="headerlink" title="2、应用数据Apply"></a>2、应用数据Apply</h4><p>通过<code>.groupby</code>方法定义了原数组的分组方法，但是并未对原数组进行真正的分割。</p>
 <p>下一步操作便是把相关的计算函数应用（Apply）到这12个分组了，使用的方法是<code>.map</code>（映射）</p>
 <p>以求解<strong>多年各月sst平均空间场</strong>为例说明其实现过程：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import xarray as xrimport numpy as npfile=&#x27;...\\sst.mnmean.nc&#x27;data=xr.open_dataset(file)gb = data.groupby(&quot;time.month&quot;)def time_mean(a):    return a.mean(dim=&quot;time&quot;)monthsst = gb.map(time_mean)monthsst</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import xarray as xr</span><br><span class="line">import numpy as np</span><br><span class="line">file=&#x27;...\\sst.mnmean.nc&#x27;</span><br><span class="line">data=xr.open_dataset(file)</span><br><span class="line">gb = data.groupby(&quot;time.month&quot;)</span><br><span class="line">def time_mean(a):    </span><br><span class="line">	return a.mean(dim=&quot;time&quot;)</span><br><span class="line">monthsst = gb.map(time_mean)</span><br><span class="line">monthsst</span><br></pre></td></tr></table></figure>
 
-<p><img src="xarray%5Cmonthsst" alt="image-20210909185744604"></p>
+<p><img src="https://img-blog.csdnimg.cn/52b3a435e920451686b99672ef634bc1.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_19,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">monthsst = gb.mean(dim = &quot;time&quot;)#直接实现计算</span><br></pre></td></tr></table></figure>
 
 <h4 id="3、具体绘图实操"><a href="#3、具体绘图实操" class="headerlink" title="3、具体绘图实操"></a>3、具体绘图实操</h4><p>下面给出一些绘图操作：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#绘制lon=180.5,lat=50.5处的数据时间序列monthsst.sst.sel(lon=180.5, lat=50.5).plot()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#绘制lon=180.5,lat=50.5处的数据时间序列</span><br><span class="line">monthsst.sst.sel(lon=180.5, lat=50.5).plot()</span><br></pre></td></tr></table></figure>
 
-<p><img src="xarray%5Clon-lat-time" alt="image-20210909190719400"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#多年纬度月平均气候场monthsst.sst.mean(dim=&quot;lon&quot;).plot.contourf(x=&quot;month&quot;, levels=12, vmin=-2, vmax=30)</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/28153695fdc642e9b150657df79dc816.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_10,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#多年纬度月平均气候场</span><br><span class="line">monthsst.sst.mean(dim=&quot;lon&quot;).plot.contourf(x=&quot;month&quot;, levels=12, vmin=-2, vmax=30)</span><br></pre></td></tr></table></figure>
 
-<p><img src="xarray%5Csst-month" alt="image-20210909190801761"></p>
+<p><img src="https://img-blog.csdnimg.cn/3a480ebc675e4a3ab7ea7bcde644689e.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_10,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
 <p>具体参数设置如下：</p>
 <ul>
 <li>绘制等值线图：<code>.plot.contourf</code>;</li>
@@ -487,10 +488,10 @@
 <li>色标分为12个部分（11个色块）：<code>levels=12</code>;</li>
 <li>绘制的最大值和最小值为30和-2：<code>vmin=-2, vmax=30</code>.</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#多年2月与7月平均气候场之间的差异(monthsst.sst.sel(month=2) - monthsst.sst.sel(month=8)).plot()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#多年2月与7月平均气候场之间的差异</span><br><span class="line">(monthsst.sst.sel(month=2) - monthsst.sst.sel(month=8)).plot()</span><br></pre></td></tr></table></figure>
 
-<p><img src="xarray%5Csst2-7" alt="image-20210909191019550"></p>
-<h3 id="xarray–重采样"><a href="#xarray–重采样" class="headerlink" title="xarray–重采样"></a>xarray–重采样</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import xarray as xrimport numpy as npfile=&#x27;..\\sst.mnmean.nc&#x27;data=xr.open_dataset(file)ds = data.sel(time=slice(&quot;1989&quot;, &quot;2018&quot;)).load()resample_obj = ds.resample(time=&quot;5Y&quot;)</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/56aa29cfb72744b08cb7b18c086deac6.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_11,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
+<h3 id="xarray–重采样"><a href="#xarray–重采样" class="headerlink" title="xarray–重采样"></a>xarray–重采样</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import xarray as xr</span><br><span class="line">import numpy as np</span><br><span class="line">file=&#x27;..\\sst.mnmean.nc&#x27;</span><br><span class="line">data=xr.open_dataset(file)</span><br><span class="line">ds = data.sel(time=slice(&quot;1989&quot;, &quot;2018&quot;)).load()</span><br><span class="line">resample_obj = ds.resample(time=&quot;5Y&quot;)</span><br></pre></td></tr></table></figure>
 
 <p>这里<code>.resample(time=&quot;5Y&quot;)</code>是对如何对时间进行重采样进行设置，维度为<code>time</code>，设置的时间间隔为 5 年。</p>
 <p>需要注意的是：resample 仅能用于正确的日期、时间索引。</p>
@@ -499,15 +500,14 @@
 
 <p>参数<code>time=12</code>指定了对维度<code>time</code>以 12 个月为周期（月数据）变动时间窗，<code>center</code>参数表明以当前窗的两侧筛选数据，否则是以当前窗的前 12 个月作为筛选目标（包括本身）。<code>.mean()</code>表明对每一个 Rolling 对象取平均。</p>
 <p>若时间窗为偶数值，那么对应中心位置将会在平均位置偏右侧,若不指定参数<code>center=True</code>，则采用从当前元素往上筛选的方法，否则采用以当前元素为中心，从两个方向上进行筛选。</p>
-<h3 id="xarray–线性多项式回归"><a href="#xarray–线性多项式回归" class="headerlink" title="xarray–线性多项式回归"></a>xarray–线性多项式回归</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import xarray as xrimport numpy as npfile=&#x27;..\\sst.mnmean.nc&#x27;data=xr.open_dataset(file)ds = data.sel(time=slice(&quot;1989&quot;, &quot;2018&quot;)).load()ds.sst.polyfit(&quot;time&quot;, 1, full = True)</span><br></pre></td></tr></table></figure>
+<h3 id="xarray–线性多项式回归"><a href="#xarray–线性多项式回归" class="headerlink" title="xarray–线性多项式回归"></a>xarray–线性多项式回归</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import xarray as xr</span><br><span class="line">import numpy as np</span><br><span class="line">file=&#x27;..\\sst.mnmean.nc&#x27;</span><br><span class="line">data=xr.open_dataset(file)</span><br><span class="line">ds = data.sel(time=slice(&quot;1989&quot;, &quot;2018&quot;)).load()ds.sst.polyfit(&quot;time&quot;, 1, full = True)</span><br></pre></td></tr></table></figure>
 
-<p><img src="xarray%5Csst.fit" alt="image-20210909211223184"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#线性趋势(斜率)ds.sst.polyfit(&quot;time&quot;, 1, full = True).polyfit_coefficients.isel(degree = 0).plot()</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/6b7f7fab69674dc182907b5d4f38eae9.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_18,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#线性趋势(斜率)</span><br><span class="line">ds.sst.polyfit(&quot;time&quot;, 1, full = True).polyfit_coefficients.isel(degree = 0).plot()</span><br></pre></td></tr></table></figure>
 
-<p><img src="xarray%5Csstfit" alt="image-20210909211255323"></p>
+<p><img src="https://img-blog.csdnimg.cn/d8501173407c47a39645c6a26b16d708.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_11,color_FFFFFF,t_70,g_se,x_16#pic_center" alt="在这里插入图片描述"></p>
 <p><code>.polyfit</code>方法实现了回归功能，第一个参数<code>&quot;time&quot;</code>指定拟合坐标为<code>time</code>，第二数字参数指定为一元线性回归，<code>full = True</code>代表回归方法不仅要返回拟合系数（一元回归即斜率和截距）还应当返回残差，矩阵秩和奇异值。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#截距空间分布ds.sst.polyfit(&quot;time&quot;, 1, full = True).polyfit_coefficients.isel(degree = 1).plot()</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#截距空间分布</span><br><span class="line">ds.sst.polyfit(&quot;time&quot;, 1, full = True).polyfit_coefficients.isel(degree = 1).plot()</span><br></pre></td></tr></table></figure>
 
       
     </div>
