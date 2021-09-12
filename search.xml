@@ -314,9 +314,11 @@
     <url>/2021/09/11/xarray-%E7%BB%98%E5%9B%BE%E4%BB%8B%E7%BB%8D/</url>
     <content><![CDATA[<p>首先导入数据以及相关库：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> xarray <span class="keyword">as</span> xr</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">file=<span class="string">&#x27;D:\\sst.mnmean.nc&#x27;</span></span><br><span class="line">data=xr.open_dataset(file)</span><br></pre></td></tr></table></figure>
+
 <p>由于该数据纬度坐标<code>lat</code>是自大至小排列的（即降序排列，为便于后续处理）使用.sortby()对纬度坐标<code>lat</code>进行升序排列。第一个参数是需进行排序的变量名称（字符串类型）；第二个参数ascending是排序方式，若为True则按照升序，否则按照降序。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ds = data.sortby(<span class="string">&quot;lat&quot;</span>, ascending= <span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
-<p><img src="xarray-%E7%BB%98%E5%9B%BE%E4%BB%8B%E7%BB%8D/0.png"></p>
+
+<p><img src="https://img-blog.csdnimg.cn/7286d6e68f7d43ac844c2e0480669700.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_18,color_FFFFFF,t_70,g_se,x_16" alt="文件"></p>
 <h2 id="基础绘图：-plot"><a href="#基础绘图：-plot" class="headerlink" title="基础绘图：.plot()"></a>基础绘图：.plot()</h2><p>DataArray 对象plot()方法能够实现快速绘图。</p>
 <p>一般来说，我们使用<code>xr.open_dataset</code>命令读取的nc文件都是<code>dataset</code>存储格式，因此需要提取里面的绘图数据，转为<code>dataArray</code>格式，再进行绘图。</p>
 <p>默认情况下，<code>.plot()</code>方法具体操作就方法传入 <code>dataArray</code> 的维度大小而定。</p>
@@ -328,40 +330,50 @@
 <p> 举个例子，我这里读取sst数据进行绘图，发现绘制出的是直方图：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ds.sst.plot()</span><br><span class="line"><span class="comment">#ds.sst.plot(orientation = &quot;horizontal&quot;);#设置直方图方向</span></span><br></pre></td></tr></table></figure>
 
-<p> <img src="xarray-%E7%BB%98%E5%9B%BE%E4%BB%8B%E7%BB%8D/1.png"><br><a href="https://matplotlib.org/stable/gallery/index.html">参考matplotlib官方绘图示例调整相关参数</a></p>
+<p> <img src="https://img-blog.csdnimg.cn/f685c887a71d4f7f88be5d9e250f8306.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_9,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br><a href="https://matplotlib.org/stable/gallery/index.html">参考matplotlib官方绘图示例调整相关参数</a></p>
 <p>如果绘制二维图像，对于SST来说，就是选取一个时间，看下面绘制热带海区sst的例子：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tropical = ds.sst.sel(lat = <span class="built_in">slice</span>(-<span class="number">20</span>, <span class="number">20</span>), lon = <span class="built_in">slice</span>(<span class="number">0</span>, <span class="number">360</span>)).isel(time=<span class="number">7</span>)</span><br><span class="line">tropical.plot()</span><br><span class="line"> <span class="comment"># 等价于ds.sst.sel(lat = slice(-20, 20), lon = slice(0, 360)).isel(time=7).plot()</span></span><br></pre></td></tr></table></figure>
-<p><img src="xarray-%E7%BB%98%E5%9B%BE%E4%BB%8B%E7%BB%8D/2.png"><br>直接一步到位以填色图为例：</p>
+
+<p><img src="https://img-blog.csdnimg.cn/d93a6fa66b6e418f8cf75715f1ed8c3b.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_10,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>直接一步到位以填色图为例：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#绘制填色图</span></span><br><span class="line">ds.sst.sel(lat = <span class="built_in">slice</span>(-<span class="number">20</span>, <span class="number">20</span>), lon = <span class="built_in">slice</span>(<span class="number">0</span>, <span class="number">360</span>)).isel(time=<span class="number">7</span>).plot.contourf()</span><br></pre></td></tr></table></figure>
-<p><img src="xarray-%E7%BB%98%E5%9B%BE%E4%BB%8B%E7%BB%8D/3.png"></p>
-<p>还有这样，</p>
+
+<p><img src="https://img-blog.csdnimg.cn/6fbd1513dcf64d5e9b46725d09944f2e.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_10,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述">还有这样，</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#绘制等值线</span></span><br><span class="line">ds.sst.sel(lat = <span class="built_in">slice</span>(-<span class="number">20</span>, <span class="number">20</span>), lon = <span class="built_in">slice</span>(<span class="number">0</span>, <span class="number">360</span>)).isel(time=<span class="number">7</span>).plot.contour()</span><br></pre></td></tr></table></figure>
-<p><img src="xarray-%E7%BB%98%E5%9B%BE%E4%BB%8B%E7%BB%8D/4.png"><br>可以看见，一般默认x轴为经度，y轴为纬度。当然，也可以自己通过命令修改：</p>
+
+<p><img src="https://img-blog.csdnimg.cn/6aa7a136cfe54d9984a8b0a22d10b362.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_11,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>可以看见，一般默认x轴为经度，y轴为纬度。当然，也可以自己通过命令修改：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tropical.plot(y = <span class="string">&quot;lon&quot;</span>, x = <span class="string">&quot;lat&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p><img src="xarray-%E7%BB%98%E5%9B%BE%E4%BB%8B%E7%BB%8D/5.png"><br>当然，如果你不想要系统的<code>colrbar</code>，可以自己通过命令调整：</p>
+
+<p><img src="https://img-blog.csdnimg.cn/2b5c1296d5c54d448b12278302653ae5.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_10,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>当然，如果你不想要系统的<code>colrbar</code>，可以自己通过命令调整：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tropical.plot(cmap=<span class="string">&quot;bwr&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p><img src="xarray-%E7%BB%98%E5%9B%BE%E4%BB%8B%E7%BB%8D/6.png"><br><a href="https://matplotlib.org/stable/tutorials/colors/colormaps.html#sphx-glr-tutorials-colors-colormaps-py">色标库colormap</a><br>当然，还有另一种方法也可以实现上述结果：<code>imshow()</code>运行速度而且较快</p>
+
+<p><img src="https://img-blog.csdnimg.cn/ba5734e1016c4c949eb4d60d54fdbcce.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_10,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br><a href="https://matplotlib.org/stable/tutorials/colors/colormaps.html#sphx-glr-tutorials-colors-colormaps-py">色标库colormap</a><br>当然，还有另一种方法也可以实现上述结果：<code>imshow()</code>运行速度而且较快</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">tropical.plot.imshow(cmap=<span class="string">&quot;GnBu&quot;</span>)</span><br></pre></td></tr></table></figure>
-<p><img src="xarray-%E7%BB%98%E5%9B%BE%E4%BB%8B%E7%BB%8D/7.png"></p>
+
+<p><img src="https://img-blog.csdnimg.cn/b386655de7ce404e98e090d413ba18b4.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_11,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"></p>
 <h2 id="进阶绘图–axes"><a href="#进阶绘图–axes" class="headerlink" title="进阶绘图–axes"></a>进阶绘图–axes</h2><p>上述简单介绍了一些基本绘图的方式，一般绘制单张图。下面，讲一下如何绘制多张图片，并对各个子图进行具体设置。<br>首先，准备画图的库，以及相关的数据。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">data</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> pltdata</span><br></pre></td></tr></table></figure>
+
 <p>大致分为以下三步：</p>
 <ul>
 <li>第一步，准备画板；</li>
 <li>第二步，指向axes，类似于画板上的一张纸</li>
 <li>第三步，在这张纸上进行绘制图像以及其他操作。</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fig = plt.figure(figsize=(<span class="number">20</span>,<span class="number">12</span>))<span class="comment">#准备画板并设置画板大小</span></span><br><span class="line">ax=fig.add_subplot(<span class="number">111</span>)<span class="comment">#指向一个子图</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fig = plt.figure(figsize=(<span class="number">20</span>,<span class="number">12</span>))</span><br><span class="line"><span class="comment">#准备画板并设置画板大小</span></span><br><span class="line">ax=fig.add_subplot(<span class="number">111</span>)<span class="comment">#指向一个子图</span></span><br></pre></td></tr></table></figure>
+
 <p>如果你想创建多张图，就可以这样：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ax1=fig.add_subplot(<span class="number">211</span>)<span class="comment">#表示两行一列，第一个位置</span></span><br><span class="line">ax2=fig.add_subplot(<span class="number">212</span>)<span class="comment">#表示两行一列，第二个位置</span></span><br><span class="line"><span class="comment">#以此类推你需要的子图数量以及位置</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ax1=fig.add_subplot(<span class="number">211</span>)</span><br><span class="line"><span class="comment">#表示两行一列，第一个位置</span></span><br><span class="line">ax2=fig.add_subplot(<span class="number">212</span>)</span><br><span class="line"><span class="comment">#表示两行一列，第二个位置</span></span><br><span class="line"><span class="comment">#以此类推你需要的子图数量以及位置</span></span><br></pre></td></tr></table></figure>
+
 <p>简单示意一下：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">fig = plt.figure()</span><br><span class="line">ax1 = fig.add_subplot(<span class="number">211</span>)</span><br><span class="line">ax2 = fig.add_subplot(<span class="number">212</span>)</span><br></pre></td></tr></table></figure>
-<p><img src="xarray-%E7%BB%98%E5%9B%BE%E4%BB%8B%E7%BB%8D/8.png"><br>对于你想绘制什么样的图，都可以通过<code>ax.xxx()</code>,进行绘制。我将常用的图形整理如下：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Axes.plot()	折线图 <span class="comment">#在()设置数据，下列同理</span></span><br><span class="line">Axes.scatter	散点图</span><br><span class="line">Axes.step	阶梯图。</span><br><span class="line">Axes.fill_between	填充两条水平曲线之间的区域。</span><br><span class="line">Axes.fill_betweenx	填充两条垂直曲线之间的区域。</span><br><span class="line">Axes.bar	条形图。</span><br><span class="line">Axes.barh	水平条形图。</span><br><span class="line">Axes.pie	饼图。</span><br><span class="line">Axes.vlines	在每个x上绘制从ymin到ymax的垂直线。</span><br><span class="line">Axes.hlines	在从xmin到xmax的每个y上绘制水平线。</span><br><span class="line">Axes.specgram	绘制频谱图。</span><br><span class="line">Axes.contour	绘制等值线。</span><br><span class="line">Axes.contourf	绘制填充图</span><br><span class="line">Axes.imshow	将数据显示为图像，即在2D常规栅格上。</span><br><span class="line">Axes.matshow	将2D矩阵或数组的值绘制为颜色编码的图像。</span><br><span class="line">Axes.pcolor	创建具有非规则矩形网格的伪彩色图。</span><br><span class="line">Axes.pcolorfast	创建具有非规则矩形网格的伪彩色图。</span><br><span class="line">Axes.pcolormesh	创建具有非规则矩形网格的伪彩色图。</span><br><span class="line">Axes.spy	绘制2D阵列的稀疏模式。</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/d57f0759501d4d27b6af9188822c0439.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAb2NlYW5vZ3JhcGh5LVJvb2tpZQ==,size_12,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>对于你想绘制什么样的图，都可以通过<code>ax.xxx()</code>,进行绘制。我将常用的图形整理如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Axes.plot()	折线图 <span class="comment">#在()设置数据，下列同理</span></span><br><span class="line">Axes.scatter	散点图</span><br><span class="line">Axes.step	阶梯图。</span><br><span class="line">Axes.fill_between	填充两条水平曲线之间的区域。</span><br><span class="line">Axes.fill_betweenx	填充两条垂直曲线之间的区域。</span><br><span class="line">Axes.bar	条形图。</span><br><span class="line">Axes.barh	水平条形图</span><br><span class="line">Axes.pie	饼图。</span><br><span class="line">Axes.vlines	在每个x上绘制从ymin到ymax的垂直线。</span><br><span class="line">Axes.hlines	在从xmin到xmax的每个y上绘制水平线。</span><br><span class="line">Axes.specgram	绘制频谱图。</span><br><span class="line">Axes.contour	绘制等值线。</span><br><span class="line">Axes.contourf	绘制填充图</span><br><span class="line">Axes.imshow	将数据显示为图像，即在2D常规栅格上。</span><br><span class="line">Axes.matshow	将2D矩阵或数组的值绘制为颜色编码的图像。</span><br><span class="line">Axes.pcolor	创建具有非规则矩形网格的伪彩色图。</span><br><span class="line">Axes.pcolorfast	创建具有非规则矩形网格的伪彩色图。</span><br><span class="line">Axes.pcolormesh	创建具有非规则矩形网格的伪彩色图。</span><br><span class="line">Axes.spy	绘制2D阵列的稀疏模式。</span><br></pre></td></tr></table></figure>
+
 <p>上述方法是进行图片绘制，对于添加标签、标题、x\y轴的标签，间隔等设置，有专门的设置方法，具体详见下面链接；</p>
 <p><strong><a href="https://blog.csdn.net/weixin_44237337/article/details/116149154?spm=1001.2014.3001.5502">matplotlib.axes属性设置</a></strong></p>
 <p>下面简单列几个最常用的：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Axes.set_xlim	设置x轴范围</span><br><span class="line">Axes.set_ylim	设置y轴范围</span><br><span class="line">Axes.set_xlabel	设置x轴的标签。</span><br><span class="line">Axes.set_ylabel	设置y轴的标签。</span><br><span class="line">Axes.set_title	设置标题。</span><br><span class="line">Axes.legend	放置一个图例。</span><br><span class="line">Axes.set_xticks	设置xaxis的刻度。</span><br><span class="line">Axes.set_xticklabels	使用字符串标签列表设置xaxis的标签。</span><br><span class="line">Axes.grid	增加网格线。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Axes.set_xlim	设置x轴范围</span><br><span class="line">Axes.set_ylim	设置y轴范围</span><br><span class="line">Axes.set_xlabel	设置x轴的标签。</span><br><span class="line">Axes.set_ylabel	设置y轴的标签。</span><br><span class="line">Axes.set_title	设置标题。</span><br><span class="line">Axes.legend	放置一个图例。</span><br><span class="line">Axes.set_xticks	设置xaxis的刻度。</span><br><span class="line">Axes.set_xticklabels	使用字符串标签列表设置xaxis的标签。</span><br><span class="line">Axes.grid	增加网格线。</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
