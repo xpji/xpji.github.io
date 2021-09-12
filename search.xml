@@ -365,10 +365,11 @@
 
 ]]></content>
       <categories>
+        <category>python</category>
         <category>xarray</category>
       </categories>
       <tags>
-        <tag>python</tag>
+        <tag>xarray 绘图</tag>
       </tags>
   </entry>
 </search>
